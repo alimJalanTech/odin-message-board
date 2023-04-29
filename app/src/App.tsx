@@ -11,7 +11,6 @@ const App: React.FC = () => {
   const [showChat, setShowChat] = useState<boolean>(false);
 
   const joinRoom = () => {
-    console.log(username, room);
     if (username !== "" && room !== "") {
       socket.emit("join_room", room);
       setShowChat(true);
@@ -26,16 +25,18 @@ const App: React.FC = () => {
           <input
             type="text"
             placeholder="User"
-            onChange={(event) => {
-              setUsername(event.target.value);
-            }}
+            onChange={(event) => setUsername(event.target.value)}
+            // onChange={(event) => {
+            //   setUsername(event.target.value);
+            // }}
           />
           <input
             type="text"
             placeholder="Room ID"
-            onChange={(event) => {
-              setRoom(event.target.value);
-            }}
+            onChange={(event) => setUsername(event.target.value)}
+            // onChange={(event) => {
+            //   setRoom(event.target.value);
+            // }}
           />
           <button onClick={joinRoom}>Join a room</button>
         </div>
