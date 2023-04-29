@@ -1,14 +1,14 @@
 import "./App.css";
-import io from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import { useState } from "react";
 import Chat from "./Chat";
 
-const socket = io.connect("http://localhost:3001");
+const socket: Socket = io("http://localhost:3001");
 
-function App() {
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
-  const [showChat, setShowChat] = useState(false);
+const App: React.FC = () => {
+  const [username, setUsername] = useState<string>("");
+  const [room, setRoom] = useState<string>("");
+  const [showChat, setShowChat] = useState<boolean>(false);
 
   const joinRoom = () => {
     console.log(username, room);
@@ -17,6 +17,7 @@ function App() {
       setShowChat(true);
     }
   };
+
   return (
     <div className="App">
       {!showChat ? (
@@ -43,6 +44,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;

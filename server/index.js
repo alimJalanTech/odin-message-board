@@ -15,24 +15,17 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log(`User Connected ${socket.id}`);
-
   socket.on("join_room", (data) => {
     socket.join(data);
-    console.log(`User with ID ${socket.id} joined room: ${data}`);
+    //console.log(`User with ID ${socket.id} joined room: ${data}`);
   });
 
   socket.on("send_message", (data) => {
-    console.log(data);
     socket.to(data.room).emit("receive_message", data);
   });
 
   //Disconnect socket when React App refreshes
-  socket.on("disconnect", () => {
-    console.log("connection disconnected", socket.id);
-  });
+  socket.on("disconnect", () => {});
 });
 
-server.listen(3001, () => {
-  console.log("Server listening on port 3001");
-});
+server.listen(3001, () => {});

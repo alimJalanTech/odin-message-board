@@ -1,13 +1,26 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 
-const Chat = ({ socket, username, room }) => {
-  const [currentMessage, setCurrentMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
+type ChatProps = {
+  socket: any;
+  username: string;
+  room: string;
+};
+
+type MessageData = {
+  message: string;
+  room: string;
+  author: string;
+  time: string;
+};
+
+const Chat: React.FC<ChatProps> = ({ socket, username, room }) => {
+  const [currentMessage, setCurrentMessage] = useState<string>("");
+  const [messageList, setMessageList] = useState<MessageData[]>([]);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
-      const messageData = {
+      const messageData: MessageData = {
         message: currentMessage,
         room: room,
         author: username,
@@ -22,7 +35,7 @@ const Chat = ({ socket, username, room }) => {
   };
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
+    socket.on("receive_message", (data: MessageData) => {
       setMessageList((list) => [...list, data]);
     });
     // Remove the event listener when the component unmounts
@@ -30,36 +43,35 @@ const Chat = ({ socket, username, room }) => {
       socket.off("receive_message");
     };
   }, [socket]);
+
   return (
     <div className="chat-window">
       <div className="chat-header">
         <h3>Live Chat</h3>
       </div>
       <div className="chat-body">
-        {messageList.map((messageContent) => {
-          return (
-            <div
-              className="message"
-              id={username === messageContent.author ? "you" : "other"}
-            >
-              <div>
-                <div className="message-content">
-                  <p>{messageContent.message}</p>
-                </div>
-                <div className="message-meta">
-                  <p>{messageContent.time}</p>
-                  <p>{messageContent.author}</p>
-                </div>
+        {messageList.map((messageContent: MessageData) => (
+          <div
+            className="message"
+            id={username === messageContent.author ? "you" : "other"}
+          >
+            <div>
+              <div className="message-content">
+                <p>{messageContent.message}</p>
+              </div>
+              <div className="message-meta">
+                <p>{messageContent.time}</p>
+                <p>{messageContent.author}</p>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
       <div className="chat-footer">
         <input
           type="text"
           placeholder="Hey..."
-          onChange={(event) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setCurrentMessage(event.target.value);
           }}
         />
