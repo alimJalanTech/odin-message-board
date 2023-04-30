@@ -30,7 +30,7 @@ const App: React.FC = () => {
           <input
             type="text"
             placeholder="Room ID"
-            onChange={(event) => setUsername(event.target.value)}
+            onChange={(event) => setRoom(event.target.value)}
           />
           <button onClick={joinRoom}>Join a room</button>
         </div>
