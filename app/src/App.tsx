@@ -26,17 +26,11 @@ const App: React.FC = () => {
             type="text"
             placeholder="User"
             onChange={(event) => setUsername(event.target.value)}
-            // onChange={(event) => {
-            //   setUsername(event.target.value);
-            // }}
           />
           <input
             type="text"
             placeholder="Room ID"
             onChange={(event) => setUsername(event.target.value)}
-            // onChange={(event) => {
-            //   setRoom(event.target.value);
-            // }}
           />
           <button onClick={joinRoom}>Join a room</button>
         </div>
